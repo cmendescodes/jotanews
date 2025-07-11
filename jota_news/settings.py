@@ -25,10 +25,13 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
+
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -38,6 +41,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'jota_news.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
