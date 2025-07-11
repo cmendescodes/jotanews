@@ -21,4 +21,4 @@ ENV DJANGO_SETTINGS_MODULE=jota_news.settings
 # Adicione STATIC_ROOT para coletar arquivos estáticos
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "jota_news.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "jota_news.wsgi:application", "--bind", "0.0.0.0:$PORT"]
