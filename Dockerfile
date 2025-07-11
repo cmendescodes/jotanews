@@ -1,23 +1,24 @@
-# Imagem base oficial da AWS Lambda com Python 3.11
-FROM public.ecr.aws/lambda/python:3.11
+# Dockerfile.railway
 
-# Evita criação de .pyc e força logs no stdout
+# Usar imagem base do Python
+FROM python:3.11-slim
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Diretório de trabalho padrão para AWS Lambda
-WORKDIR /var/task
+WORKDIR /app
 
-# Copia o requirements.txt primeiro (para cache)
 COPY requirements.txt .
 
-# Instala as dependências do projeto
 RUN pip install --upgrade pip \
  && pip install -r requirements.txt \
- && pip install psycopg2-binary
+ && pip install gunicorn
 
-# Copia o restante do código do projeto para dentro da imagem
 COPY . .
 
-# Configuração do handler padrão da Lambda
-CMD ["consumer.lambda_handler"]
+ENV DJANGO_SETTINGS_MODULE=jota_news.settings
+
+# Adicione STATIC_ROOT para coletar arquivos estáticos
+RUN python manage.py collectstatic --noinput
+
+CMD ["gunicorn", "jota_news.wsgi:application", "--bind", "0.0.0.0:8000"]
