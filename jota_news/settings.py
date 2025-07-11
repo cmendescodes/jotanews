@@ -60,9 +60,9 @@ WSGI_APPLICATION = 'jota_news.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'jota_news'),
+        'NAME': os.environ.get('POSTGRES_DB', 'railway'),
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'EDeaelfSuLJlqtCfrLGlAuaLjisszJvp'),
         'HOST': os.environ.get('DB_HOST', 'tramway.proxy.rlwy.net'),
         'PORT': os.environ.get('POSTGRES_PORT', '47183'),
     }
