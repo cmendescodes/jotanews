@@ -3,13 +3,14 @@ PYTHONPATH=.
 
 # Django
 DJANGO_SETTINGS_MODULE=jota_news.settings
+DJANGO_SECRET_KEY='5epn@ggk)p@8%f6m(e%9_d8ks^e&js25je0&pn4#0c)h3m^oty'
 
 # PostgreSQL - Ambiente de Produção (Railway)
 DB_HOST=tramway.proxy.rlwy.net
-DB_PORT=47183
-DB_NAME=railway
-DB_USER=postgres
-DB_PASSWORD=EDeaelfSuLJlqtCfrLGlAuaLjisszJvp
+POSTGRES_PORT=47183
+POSTGRES_DB=railway
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=EDeaelfSuLJlqtCfrLGlAuaLjisszJvp
 
 # [REMOVIDO] Variáveis do banco local via Docker:
 # POSTGRES_DB=jota_news
