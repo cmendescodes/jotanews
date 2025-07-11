@@ -1,7 +1,21 @@
+# Caminho do projeto para importações
 PYTHONPATH=.
-POSTGRES_DB=jota_news
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-DB_HOST=db
-RABBITMQ_HOST=rabbitmq
+
+# Django
 DJANGO_SETTINGS_MODULE=jota_news.settings
+
+# PostgreSQL - Ambiente de Produção (Railway)
+DB_HOST=tramway.proxy.rlwy.net
+DB_PORT=47183
+DB_NAME=railway
+DB_USER=postgres
+DB_PASSWORD=EDeaelfSuLJlqtCfrLGlAuaLjisszJvp
+
+# [REMOVIDO] Variáveis do banco local via Docker:
+# POSTGRES_DB=jota_news
+# POSTGRES_USER=postgres
+# POSTGRES_PASSWORD=postgres
+# DB_HOST=db
+
+# [REMOVIDO] RabbitMQ - não está sendo usado neste projeto:
+# RABBITMQ_HOST=rabbitmq

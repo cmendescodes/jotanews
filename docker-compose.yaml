@@ -4,10 +4,8 @@ services:
   db:
     image: postgres:15
     restart: always
-    environment:
-      POSTGRES_DB: jota_news
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    env_file:
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
@@ -23,13 +21,10 @@ services:
     depends_on:
       - rabbitmq
       - db
+    env_file:
+      - .env
     environment:
       - DJANGO_SETTINGS_MODULE=jota_news.settings
-      - POSTGRES_DB=jota_news
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - DB_HOST=db
-      - RABBITMQ_HOST=rabbitmq
 
   consumer:
     build: .
@@ -40,13 +35,10 @@ services:
       - db
     volumes:
       - .:/app
+    env_file:
+      - .env
     environment:
       - DJANGO_SETTINGS_MODULE=jota_news.settings
-      - POSTGRES_DB=jota_news
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - DB_HOST=db
-      - RABBITMQ_HOST=rabbitmq
 
   rabbitmq:
     image: rabbitmq:3-management
