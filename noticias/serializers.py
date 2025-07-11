@@ -8,7 +8,6 @@ class WebhookNoticiaSerializer(serializers.Serializer):
     data_publicacao = serializers.DateTimeField()
     urgente = serializers.BooleanField(default=False)
 
-
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
@@ -25,11 +24,6 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['id', 'nome']
-
-class NoticiaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Noticia
-        fields = '__all__'
 
 class NoticiaSerializer(serializers.ModelSerializer):
     categoria = CategoriaSerializer(read_only=True)
