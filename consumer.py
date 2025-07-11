@@ -12,19 +12,19 @@ django.setup()
 
 from noticias.models import Noticia, Categoria, Subcategoria, Tag
 from noticias.classification import classificar
+from django.utils.dateparse import parse_datetime
 
 def save_noticia(data):
-    """
-    Salva notícia no banco de dados após classificar.
-    Espera data com campos: titulo, conteudo, fonte, data_publicacao, urgente (bool)
-    """
     titulo = data['titulo']
     conteudo = data['conteudo']
     fonte = data['fonte']
-    data_publicacao = data['data_publicacao']
+    data_publicacao_str = data['data_publicacao']
     urgente = data.get('urgente', False)
 
-    # Classificar a notícia
+    data_publicacao = parse_datetime(data_publicacao_str)
+    if data_publicacao is None:
+        raise ValueError("data_publicacao inválida")
+
     categoria_nome, subcategoria_nome, tags_nomes = classificar(titulo + " " + conteudo)
 
     categoria, _ = Categoria.objects.get_or_create(nome=categoria_nome or "Geral")
@@ -32,7 +32,6 @@ def save_noticia(data):
     if subcategoria_nome:
         subcategoria, _ = Subcategoria.objects.get_or_create(nome=subcategoria_nome, categoria=categoria)
 
-    # Criar notícia
     noticia = Noticia.objects.create(
         titulo=titulo,
         conteudo=conteudo,
@@ -42,6 +41,13 @@ def save_noticia(data):
         subcategoria=subcategoria,
         urgente=urgente,
     )
+
+    for tag_nome in tags_nomes:
+        tag, _ = Tag.objects.get_or_create(nome=tag_nome)
+        noticia.tags.add(tag)
+
+    noticia.save()
+    print(f"✅ Notícia salva: {titulo}")
 
     # Criar ou obter tags e associar
     for tag_nome in tags_nomes:
