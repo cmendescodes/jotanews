@@ -48,8 +48,9 @@ O objetivo é processar notícias enviadas via webhook, classificá-las automati
   - CORS Headers (liberação para dev)
 
 - **Testes**
-  - Postman
-  - `test_boto.py`
+  - Postman - via `/api/webhook/noticias`
+  - `test_boto.py` -> Integração -> Dispara Notícias
+  - `test_api.py` -> Unitário/Lambda-queue
   - (Planejado) pytest
 
 - **DevOps e Ferramentas**
@@ -62,21 +63,21 @@ O objetivo é processar notícias enviadas via webhook, classificá-las automati
 
 
 Cliente / Webhook
-       ↓ POST /api
+       -> POST /api
    Django REST API
-       ↓
+       ->
  Railway + Gunicorn
-       ↓
+       ->
  Recebe & envia para SQS
-       ↓
+       ->
  Amazon SQS (noticias-queue)
-       ↓
+       ->
      Trigger
-       ↓
+       ->
  AWS Lambda (Docker + Django)
-       ↓
+       ->
 Classifica & salva no banco
-       ↓
+       ->
 PostgreSQL (Railway Cloud DB)
 
 
@@ -208,31 +209,42 @@ aws lambda update-function-code --function-name nome-da-sua-funcao --zip-file fi
 
 ### Variáveis Railway - Conferir REGIÃO DA FUNÇÃO Ex: sa-east-1
 
+```env
 DJANGO_SECRET_KEY=your_django_secret_key
 DJANGO_DEBUG=True
 DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,testserver
-
 POSTGRES_DB=your_database_name
 POSTGRES_USER=your_db_username
 POSTGRES_PASSWORD=your_db_password
 POSTGRES_PORT=sua porta
 DB_HOST=your_database_host
-
 AWS_ACCESS_KEY_ID=your_aws_access_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 AWS_REGION=sa-east-1
 SQS_QUEUE_URL=https://sqs.sa-east-1.amazonaws.com/123456789012/your-queue-name
+```
 
 ### Variáveis Lambda - Conferir REGIÃO DA FUNÇÃO Ex: sa-east-1
 
+```env
 DJANGO_SECRET_KEY=your_django_secret_key
 DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,testserver
-
 POSTGRES_DB=your_database_name
 POSTGRES_USER=your_db_username
 POSTGRES_PASSWORD=your_db_password
 POSTGRES_PORT=sua porta
 DB_HOST=your_database_host
+```
+**⚙️ Observação sobre CI/CD no GitHub Actions**
+❗ O workflow do GitHub Actions pode falhar inicialmente ao clonar o repositório, pois requer credenciais privadas do Docker Hub que não estão incluídas por questões de segurança.
+
+Para ativar o CI/CD automático via GitHub Actions, após clonar o repositório para sua conta, insira as seguintes variáveis de ambiente no repositório do GitHub (Settings → Secrets → Actions):
+```env
+DOCKERHUB_USERNAME=seu-usuario-no-dockerhub
+DOCKERHUB_TOKEN=seu-token-de-acesso
+```
+Essas variáveis são utilizadas para autenticar o push da imagem Docker da API/Lambda no workflow automático.
+O projeto funcionará perfeitamente de forma manual ou local mesmo sem estas variáveis.
 
 ## 🎓 Autor
 
@@ -242,7 +254,7 @@ DB_HOST=your_database_host
 
 ---
 
-> ✨ *Pronto para evoluir com autenticação e testes automatizados!*
+> ✨ *Pronto para integrar o envio de notificações via WhatsApp para notícias urgentes.*
 
 ---
 
