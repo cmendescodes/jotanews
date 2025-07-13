@@ -60,7 +60,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jota_news.wsgi.application'
 
-
+# Substitua pela sua configuração
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -87,7 +87,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Adicione esta linha para o collectstatic funcionar no deploy
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

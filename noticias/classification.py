@@ -1,5 +1,3 @@
-# classification.py
-
 # Dicionários com palavras-chave para categorias e subcategorias
 CATEGORIAS_KEYWORDS = {
     "Tributos": ["IR", "Imposto", "Fiscal", "Receita", "Tributo", "Isenção", "Congresso"],

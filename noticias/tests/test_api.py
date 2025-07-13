@@ -1,5 +1,3 @@
-# tests/test_api.py
-
 import os
 import sys
 import django
@@ -9,7 +7,6 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils import timezone
 
-# Configura ambiente Django
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jota_news.settings')
 django.setup()
@@ -29,7 +26,7 @@ class ClassificacaoTestCase(TestCase):
 class WebhookAPITestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse("webhook-noticias")  # Garanta que essa view tenha name="webhook-noticias"
+        self.url = reverse("webhook-noticias")  
 
     def test_envio_noticia_valida(self):
         payload = {

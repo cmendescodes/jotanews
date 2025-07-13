@@ -1,12 +1,10 @@
-# lambda_function.py
-
 import json
 import os
 from dotenv import load_dotenv
 from classification import classificar
 from db import salvar_noticia
 
-load_dotenv()  # Carrega variáveis do .env para uso local
+load_dotenv()  
 
 def lambda_handler(event, context):
     """
