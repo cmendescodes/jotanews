@@ -235,7 +235,9 @@ POSTGRES_PASSWORD=your_db_password
 POSTGRES_PORT=sua porta
 DB_HOST=your_database_host
 ```
-**⚙️ Observação sobre CI/CD no GitHub Actions**
+---
+
+### ⚙️ Observação sobre CI/CD no GitHub Actions
 ❗ O workflow do GitHub Actions pode falhar inicialmente ao clonar o repositório, pois requer credenciais privadas do Docker Hub que não estão incluídas por questões de segurança.
 
 Para ativar o CI/CD automático via GitHub Actions, após clonar o repositório para sua conta, insira as seguintes variáveis de ambiente no repositório do GitHub (Settings → Secrets → Actions):
@@ -245,6 +247,29 @@ DOCKERHUB_TOKEN=seu-token-de-acesso
 ```
 Essas variáveis são utilizadas para autenticar o push da imagem Docker da API/Lambda no workflow automático.
 O projeto funcionará perfeitamente de forma manual ou local mesmo sem estas variáveis.
+
+---
+
+### ⚙️ Instruções staticfiles Painel Docker Admin
+
+```bash
+pip install whitenoise
+```
+Incluir manualmente ou
+```bash
+pip freeze > requirements.txt
+```
+**settings.py**
+```bash
+MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # demais middlewares...
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+```
+
+Após, acesse normalmente via https://seu-app.up.railway.app/admin
 
 ## 🎓 Autor
 
