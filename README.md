@@ -150,7 +150,7 @@ http://127.0.0.1:8000/api/webhook/noticias/
 ## 🚫 Segurança
 
 - Variáveis sensíveis isoladas no `.env`
-- Gunicorn configurado para produção
+- Servidor WSGI com Gunicorn para produção
 - CORS liberado temporariamente com `CORS_ALLOW_ALL_ORIGINS=True` (desenvolvimento apenas)
 
 ---
@@ -158,9 +158,9 @@ http://127.0.0.1:8000/api/webhook/noticias/
 ## ⚖️ Testes
 
 - Testes manuais via Postman
-- Arquivo `test_boto.py` para teste de integração -> envio de lote de notícias
-- Arquivo `test_api.py` para teste de unitário -> sqs-queue
-- Cobertura automatizada futura (sugestão: `pytest`)
+- Código `test_boto.py` com teste de integração -> envio de lote de notícias
+- Código `test_api.py` com teste unitário -> sqs-queue
+- Cobertura automatizada (sugestão: `pytest`)
 
 ---
 
@@ -180,12 +180,12 @@ http://127.0.0.1:8000/api/webhook/noticias/
 ```Dockerfile (raíz do projeto)
 CMD sh -c "gunicorn jota_news.wsgi:application --bind 0.0.0.0:$PORT"
 ```
-- Railway executa automaticamente `python manage.py collectstatic --noinput`
+- Railway executa automaticamente - não precisa configurar Start Command.
 
 ### Lambda com Docker
 
-- Dockerfile localizado em `lambda/Dockerfile`
-- Antes do build da imagem, mova o Dockerfile para a raiz para facilitar:
+- Dockerfile localizado no dir `lambda/Dockerfile`
+- Antes do build da imagem Docker, mova o do dir `lambda/Dockerfile` Dockerfile para a raiz para facilitar:
 ```bash
 docker build --provenance=false -t 123456789012.dkr.ecr.sa-east-1.amazonaws.com/jotanews:latest .
 
