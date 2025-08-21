@@ -1,5 +1,5 @@
 
-# 📡 JotaNews - Desafio Técnico Backend Python (JOTA)
+# 📡 JotaNews - API Backend Python (JOTA)
 
 Este projeto implementa uma solução robusta e escalável para ingestão, classificação, armazenamento e consulta de notícias. A arquitetura é baseada em microsserviços com uso de AWS SQS, Lambda com Docker e persistência em banco PostgreSQL via Railway.
 
